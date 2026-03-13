@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portfolio — M. LEE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===== Palette bleu & blanc (fond modifié) ===== */
+    :root{
+      --bg1: linear-gradient(180deg,#1a1a1a 0%, #2d2d2d 55%, #3a3a3a 100%);
+      --accent: #ff6b6b;
+      --accent-dark: #ff5252;
+      --text: #ffffff;
+      --white: #ffffff;
+      --glass: rgba(255,255,255,0.06);
+      --muted: rgba(255,255,255,0.65);
+      --card: rgba(255,255,255,0.03);
+      --radius: 14px;
+      --glass-border: rgba(255,255,255,0.06);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    /* ===== Reset & Base ===== */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body,#root{height:100%}
+    body{
+      min-height:100vh;
+      background:var(--bg1);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      line-height:1.45;
+    }
+
+    /* ===== Layout ===== */
+    .vay1{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:48px 24px;}
+    .vay2{width:100%;max-width:1200px;display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px;}
+    .vay3{display:flex;align-items:center;gap:12px;}
+    .vay3 .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--white),var(--accent));
+      display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--text);box-shadow:0 6px 20px rgba(14,40,80,0.08);
+    }
+    .vay4{display:flex;gap:18px;align-items:center;}
+    .vay4 nav{display:flex;gap:14px;font-weight:600;color:var(--muted)}
+    .vay4 nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px;transition:all .18s}
+    .vay4 nav a:hover{background:var(--glass);color:var(--text);transform:translateY(-3px)}
+
+    /* ===== Hero ===== */
+    .vay5{width:100%;max-width:1200px;display:flex;flex-direction:column;align-items:center;gap:36px;margin-bottom:48px;}
+    .vay6{background:transparent;padding:28px;border-radius:var(--radius);backdrop-filter:blur(4px);border:1px solid var(--glass-border);text-align:center}
+    .vay7 h1{font-size:clamp(28px,5vw,56px);line-height:1.02;margin-bottom:8px}
+    .vay7 p{color:var(--muted);font-size:16px;margin-bottom:18px}
+    .vay8{display:flex;gap:12px;align-items:center}
+    .vay8 .btn{
+      background:linear-gradient(90deg,var(--accent),var(--accent-dark));
+      color:var(--white);padding:12px 18px;border-radius:12px;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 30px rgba(255,107,107,0.12);
+    }
+    .vay8 .ghost{background:transparent;border:1px solid var(--glass-border);color:var(--muted);padding:10px 14px;border-radius:12px;cursor:pointer}
+
+    /* Hero card right */
+    .vay9{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:20px;border-radius:16px;border:1px solid rgba(255,255,255,0.03);display:flex;flex-direction:column;gap:12px;align-items:center}
+    .vay9 .avatar{width:160px;height:160px;border-radius:20px;background:linear-gradient(135deg,#ffffff,#3a3a3a);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:40px;color:var(--accent-dark);box-shadow:0 8px 30px rgba(58,58,58,0.06)}
+    .vay9 .meta{color:var(--muted);text-align:center}
+
+    /* ===== About & Skills ===== */
+    .vay10{width:100%;max-width:1200px;display:grid;grid-template-columns:1fr 360px;gap:28px;margin-bottom:48px;align-items:start}
+    .vay11{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));padding:22px;border-radius:14px;border:1px solid rgba(255,255,255,0.03)}
+    .vay11 h2{margin-bottom:12px;color:var(--text)}
+    .vay11 p{color:var(--muted)}
+    .vay12{display:flex;flex-direction:column;gap:12px}
+    .skill{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);padding:10px;border-radius:10px}
+    .skill .bar{height:8px;background:rgba(255,255,255,0.06);border-radius:8px;flex:1;margin-left:12px;overflow:hidden}
+    .skill .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-dark));border-radius:8px}
+
+    /* ===== Projects ===== */
+    .vay13{width:100%;max-width:1200px;margin-bottom:48px}
+    .vay14{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .project{
+      background:linear-gradient(180deg,rgba(255,255,255,0.1),rgba(100,100,100,0.1));
+      padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:transform .18s,box-shadow .18s;
+    }
+    .project:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(100,100,100,0.08)}
+    .project h3{margin-bottom:8px;color:var(--text)}
+    .project p{color:var(--muted);font-size:14px}
+
+    /* ===== Photo Gallery ===== */
+    .photo-gallery{width:100%;max-width:1200px;margin-bottom:48px}
+    .photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px}
+    .photo-placeholder{background:linear-gradient(180deg,rgba(255,255,255,0.1),rgba(100,100,100,0.1));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);display:flex;justify-content:center;align-items:center}
+    .photo-placeholder img{width:100%;height:auto;border-radius:8px}
+
+    /* ===== Contact ===== */
+    .vay15{width:100%;max-width:1200px;display:flex;gap:20px;align-items:flex-start;margin-bottom:48px}
+    .vay16{flex:1;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .vay17{width:360px;background:linear-gradient(180deg,rgba(255,255,255,0.1),rgba(100,100,100,0.1));padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+    .vay16 form{display:flex;flex-direction:column;gap:12px}
+    input,textarea{background:transparent;border:1px solid rgba(2,20,40,0.06);padding:12px;border-radius:10px;color:var(--text)}
+    textarea{min-height:120px;resize:vertical}
+
+    /* ===== Footer ===== */
+    .vay18{width:100%;max-width:1200px;padding:18px;border-top:1px solid rgba(255,255,255,0.03);display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:14px;border-radius:10px}
+
+    /* ===== Decorative shapes (bleu & blanc) ===== */
+    .shape{
+      position:absolute;border-radius:50%;opacity:0.12;filter:blur(18px);transform:translate3d(0,0,0);
+      animation:float 8s ease-in-out infinite;
+      mix-blend-mode:screen;
+    }
+    @keyframes float{
+      0%{transform:translateY(0) translateX(0) scale(1)}
+      50%{transform:translateY(-18px) translateX(8px) scale(1.03)}
+      100%{transform:translateY(0) translateX(0) scale(1)}
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      .vay5{grid-template-columns:1fr}
+      .vay10{grid-template-columns:1fr}
+      .vay2{flex-direction:column;align-items:flex-start;gap:8px}
+      .vay9{order:2}
+    }
+  </style>
+</head>
+<body>
+  <div class="vay1" id="root">
+    <!-- Header -->
+    <div class="vay2">
+      <div class="vay3">
+        <div class="logo">A</div>
+        <div>
+          <div style="font-weight:800;font-size:18px;color:var(--text)">M. LEE</div>
+          <div style="font-size:12px;color:var(--muted)">Designer • Développeur</div>
+        </div>
+      </div>
+
+      <div class="vay4">
+        <nav>
+          <a href="#about">À propos</a>
+          <a href="#projects">Projets</a>
+          <a href="#photos">Photos</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="vay5">
+      <div class="vay6 vay7">
+        <h1>Bonjour, je suis <span style="background:linear-gradient(90deg,var(--white),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900">M. LEE</span></h1>
+        <p>Je conçois des expériences numériques élégantes et performantes. UI/UX, front-end moderne et prototypes interactifs.</p>
+        <div class="vay8">
+          <button class="btn" id="downloadBtn">Voir CV</button>
+          <button class="ghost" id="contactBtn">Me contacter</button>
+        </div>
+      </div>
+
+      <div class="vay9">
+        <div class="avatar">M</div>
+        <div class="meta">
+          <div style="font-weight:700;color:var(--text)">M. LEE — Développeur Front-end</div>
+          <div style="color:var(--muted);font-size:13px">HTML • CSS • JavaScript • React • Design System</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- About & Skills -->
+    <div class="vay10" id="about">
+      <div class="vay11">
+        <h2>À propos de moi</h2>
+        <p>Je suis étudiant en développement web, passionné par la création d'interfaces propres, accessibles et animées. J'aime transformer des idées en produits tangibles et soignés.</p>
+        <div style="height:12px"></div>
+        <div class="vay12">
+          <div class="skill"><strong>Design UI</strong><div class="bar"><i style="width:88%"></i></div></div>
+          <div class="skill"><strong>HTML/CSS</strong><div class="bar"><i style="width:94%"></i></div></div>
+          <div class="skill"><strong>JavaScript</strong><div class="bar"><i style="width:86%"></i></div></div>
+          <div class="skill"><strong>React</strong><div class="bar"><i style="width:78%"></i></div></div>
+        </div>
+      </div>
+
+      <div class="vay12 vay13">
+        <div style="background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(2,20,40,0.03)">
+          <h3 style="color:var(--text)">Compétences rapides</h3>
+          <ul style="color:var(--muted);margin-top:8px;line-height:1.8">
+            <li>Design system & prototypage</li>
+            <li>Responsive & performance</li>
+            <li>Animations CSS & micro-interactions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="vay13" id="projects">
+      <h2 style="margin-bottom:14px;color:var(--text)">Projets récents</h2>
+      <div class="vay14">
+        <div class="project vay14" data-title="Dashboard Analytics" data-desc="Tableau de bord interactif avec visualisations en temps réel.">
+          <h3>Dashboard Analytics</h3>
+          <p>Tableau de bord interactif, filtres et graphiques réactifs.</p>
+        </div>
+        <div class="project vay15" data-title="Portfolio Animé" data-desc="Site portfolio animé avec transitions fluides.">
+          <h3>Portfolio Animé</h3>
+          <p>Transitions CSS avancées et layout responsive.</p>
+        </div>
+        <div class="project vay16" data-title="App ToDo" data-desc="Application ToDo avec stockage local et UX soignée.">
+          <h3>App ToDo</h3>
+          <p>Gestion des tâches, filtres et animations.</p>
+        </div>
+        <div class="project vay17" data-title="E-commerce UI" data-desc="Prototype UI pour boutique en ligne.">
+          <h3>E-commerce UI</h3>
+          <p>Fiches produit, panier et micro-interactions.</p>
+        </div>
+        <div class="project vay18" data-title="Landing Page" data-desc="Landing page optimisée pour conversion.">
+          <h3>Landing Page</h3>
+          <p>Design orienté conversion et performance.</p>
+        </div>
+        <div class="project vay19" data-title="Mini Game" data-desc="Jeu web simple en JavaScript.">
+          <h3>Mini Game</h3>
+          <p>Prototype ludique et responsive.</p>
+        </div>
+        <div class="project vay20" data-title="API Dashboard" data-desc="Interface pour visualiser données d'API.">
+          <h3>API Dashboard</h3>
+          <p>Intégration API et visualisation.</p>
+        </div>
+        <div class="project vay21" data-title="Blog Tech" data-desc="Blog personnel avec CMS statique.">
+          <h3>Blog Tech</h3>
+          <p>Articles, tags et recherche rapide.</p>
+        </div>
+        <div class="project vay22" data-title="Design System" data-desc="Bibliothèque de composants réutilisables.">
+          <h3>Design System</h3>
+          <p>Composants, tokens et documentation.</p>
+        </div>
+        <div class="project vay23" data-title="Prototype Mobile" data-desc="Prototype mobile-first pour app.">
+          <h3>Prototype Mobile</h3>
+          <p>Expérience mobile optimisée.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Photo Gallery -->
+    <div class="photo-gallery" id="photos">
+      <h2 style="margin-bottom:14px;color:var(--text)">Mes Photos</h2>
+      <div class="photos">
+        <div class="photo-placeholder">
+          <img src="photo/va1.jpg" alt="Photo 1">
+        </div>
+        <div class="photo-placeholder">
+          <img src="photo/va2.jpg" alt="Photo 2">
+        </div>
+        <div class="photo-placeholder">
+          <video id="autoplay-video" src="photo/va3.MP4" muted loop></video>
+        </div>
+        <div class="photo-placeholder">
+          <img src="photo/va4.jpg" alt="Photo 4">
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="vay15" id="contact">
+      <div class="vay16">
+        <h2>Contact</h2>
+        <form id="contactForm">
+          <input type="text" name="name" placeholder="Ton nom" required />
+          <input type="email" name="email" placeholder="Ton email" required />
+          <input type="text" name="subject" placeholder="Sujet" />
+          <textarea name="message" placeholder="Ton message" required></textarea>
+          <div style="display:flex;gap:10px">
+            <button class="btn" type="submit">Envoyer</button>
+            <button class="ghost" type="button" id="resetBtn">Effacer</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="vay17">
+        <h3 style="color:var(--text)">Infos</h3>
+        <p style="color:var(--muted)">Basé à Kampemba, Haut-Katanga. Disponible pour stages et projets étudiants.</p>
+        <div style="height:12px"></div>
+        <div style="display:flex;gap:8px">
+          <a style="color:var(--muted);text-decoration:none">GitHub</a>
+          <a style="color:var(--muted);text-decoration:none">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="vay18">
+      <div>© <strong>M. LEE</strong> — Portfolio étudiant</div>
+      <div style="color:var(--muted)">Fait avec soin • HTML • CSS • JS</div>
+    </div>
+
+    <!-- Decorative shapes: vay28..vay100 (bleu & blanc) -->
+    <div class="vay28 shape" style="width:220px;height:220px;left:-60px;top:40px;background:radial-gradient(circle,#ffffff,#cfe9ff)"></div>
+    <div class="vay29 shape" style="width:140px;height:140px;right:-40px;top:80px;background:radial-gradient(circle,#d7efff,#a9d8ff);animation-duration:10s;opacity:0.09"></div>
+    <div class="vay30 shape" style="width:90px;height:90px;left:10%;bottom:10%;background:radial-gradient(circle,#eaf6ff,#cfe9ff);opacity:0.06"></div>
+    <div class="vay31 shape" style="width:120px;height:120px;right:18%;bottom:18%;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.06"></div>
+    <div class="vay32 shape" style="width:60px;height:60px;left:50%;top:10%;background:radial-gradient(circle,#ffffff,#a9d8ff);opacity:0.08"></div>
+    <div class="vay33 shape" style="width:180px;height:180px;left:70%;top:40%;background:radial-gradient(circle,#cfe9ff,#a9d8ff);opacity:0.05"></div>
+    <div class="vay34 shape" style="width:40px;height:40px;left:30%;top:70%;background:radial-gradient(circle,#eaf6ff,#ffffff);opacity:0.07"></div>
+    <div class="vay35 shape" style="width:260px;height:260px;right:-120px;top:220px;background:radial-gradient(circle,#d7efff,#cfe9ff);opacity:0.04"></div>
+    <div class="vay36 shape" style="width:80px;height:80px;left:6%;top:30%;background:radial-gradient(circle,#ffffff,#a9d8ff);opacity:0.06"></div>
+    <div class="vay37 shape" style="width:110px;height:110px;left:12%;bottom:28%;background:radial-gradient(circle,#eaf6ff,#d7efff);opacity:0.05"></div>
+    <div class="vay38 shape" style="width:70px;height:70px;right:8%;top:6%;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.07"></div>
+    <div class="vay39 shape" style="width:200px;height:200px;left:-80px;bottom:120px;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.03"></div>
+    <div class="vay40 shape" style="width:50px;height:50px;left:44%;top:36%;background:radial-gradient(circle,#eaf6ff,#a9d8ff);opacity:0.08"></div>
+    <div class="vay41 shape" style="width:95px;height:95px;right:28%;top:12%;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.06"></div>
+    <div class="vay42 shape" style="width:130px;height:130px;left:22%;top:8%;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.05"></div>
+    <div class="vay43 shape" style="width:48px;height:48px;right:42%;bottom:6%;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.07"></div>
+    <div class="vay44 shape" style="width:160px;height:160px;left:60%;top:-40px;background:radial-gradient(circle,#a9d8ff,#eaf6ff);opacity:0.04"></div>
+    <div class="vay45 shape" style="width:36px;height:36px;left:80%;top:60%;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.08"></div>
+    <div class="vay46 shape" style="width:72px;height:72px;left:4%;top:14%;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.06"></div>
+    <div class="vay47 shape" style="width:88px;height:88px;right:12%;bottom:40%;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.05"></div>
+    <div class="vay48 shape" style="width:140px;height:140px;left:34%;bottom:6%;background:radial-gradient(circle,#a9d8ff,#eaf6ff);opacity:0.04"></div>
+    <div class="vay49 shape" style="width:54px;height:54px;left:18%;top:44%;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.07"></div>
+    <div class="vay50 shape" style="width:102px;height:102px;right:6%;top:36%;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.05"></div>
+    <div class="vay51 shape" style="width:46px;height:46px;left:52%;top:52%;background:radial-gradient(circle,#eaf6ff,#cfe9ff);opacity:0.08"></div>
+    <div class="vay52 shape" style="width:66px;height:66px;left:72%;bottom:8%;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.06"></div>
+    <div class="vay53 shape" style="width:124px;height:124px;left:8%;bottom:36%;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.04"></div>
+    <div class="vay54 shape" style="width:34px;height:34px;right:22%;top:46%;background:radial-gradient(circle,#a9d8ff,#eaf6ff);opacity:0.08"></div>
+    <div class="vay55 shape" style="width:210px;height:210px;left:-120px;top:260px;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.03"></div>
+    <div class="vay56 shape" style="width:58px;height:58px;left:26%;top:18%;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.07"></div>
+    <div class="vay57 shape" style="width:96px;height:96px;right:30%;bottom:22%;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.05"></div>
+    <div class="vay58 shape" style="width:44px;height:44px;left:46%;top:8%;background:radial-gradient(circle,#a9d8ff,#eaf6ff);opacity:0.08"></div>
+    <div class="vay59 shape" style="width:76px;height:76px;left:62%;top:22%;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.06"></div>
+    <div class="vay60 shape" style="width:132px;height:132px;right:-40px;bottom:320px;background:radial-gradient(circle,#a9d8ff,#cfe9ff);opacity:0.04"></div>
+    <div class="vay61 shape" style="width:28px;height:28px;left:12%;top:6%;background:radial-gradient(circle,#eaf6ff,#ffffff);opacity:0.09"></div>
+    <div class="vay62 shape" style="width:64px;height:64px;left:84%;top:8%;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.07"></div>
+    <div class="vay63 shape" style="width:118px;height:118px;left:40%;bottom:44%;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.05"></div>
+    <div class="vay64 shape" style="width:52px;height:52px;right:46%;top:28%;background:radial-gradient(circle,#a9d8ff,#eaf6ff);opacity:0.08"></div>
+    <div class="vay65 shape" style="width:86px;height:86px;left:30%;top:18%;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.06"></div>
+    <div class="vay66 shape" style="width:100px;height:100px;right:12%;top:220px;background:radial-gradient(circle,#a9d8ff,#cfe9ff);opacity:0.05"></div>
+    <div class="vay67 shape" style="width:42px;height:42px;left:54%;top:12%;background:radial-gradient(circle,#eaf6ff,#ffffff);opacity:0.08"></div>
+    <div class="vay68 shape" style="width:74px;height:74px;left:16%;bottom:12%;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.06"></div>
+    <div class="vay69 shape" style="width:128px;height:128px;right:22%;bottom:120px;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.04"></div>
+    <div class="vay70 shape" style="width:56px;height:56px;left:68%;top:44%;background:radial-gradient(circle,#a9d8ff,#eaf6ff);opacity:0.07"></div>
+    <div class="vay71 shape" style="width:92px;height:92px;left:2%;top:120px;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.05"></div>
+    <div class="vay72 shape" style="width:38px;height:38px;right:8%;bottom:8%;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.08"></div>
+    <div class="vay73 shape" style="width:146px;height:146px;left:46%;top:-60px;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.04"></div>
+    <div class="vay74 shape" style="width:68px;height:68px;left:82%;bottom:28%;background:radial-gradient(circle,#a9d8ff,#eaf6ff);opacity:0.06"></div>
+    <div class="vay75 shape" style="width:54px;height:54px;left:28%;top:28%;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.07"></div>
+    <div class="vay76 shape" style="width:118px;height:118px;right:44%;bottom:200px;background:radial-gradient(circle,#a9d8ff,#cfe9ff);opacity:0.05"></div>
+    <div class="vay77 shape" style="width:32px;height:32px;left:12%;bottom:6%;background:radial-gradient(circle,#eaf6ff,#ffffff);opacity:0.09"></div>
+    <div class="vay78 shape" style="width:82px;height:82px;left:58%;top:18%;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.06"></div>
+    <div class="vay79 shape" style="width:104px;height:104px;right:6%;top:120px;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.05"></div>
+    <div class="vay80 shape" style="width:46px;height:46px;left:36%;bottom:8%;background:radial-gradient(circle,#a9d8ff,#eaf6ff);opacity:0.08"></div>
+    <div class="vay81 shape" style="width:62px;height:62px;left:72%;top:6%;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.07"></div>
+    <div class="vay82 shape" style="width:138px;height:138px;left:-40px;top:420px;background:radial-gradient(circle,#a9d8ff,#cfe9ff);opacity:0.03"></div>
+    <div class="vay83 shape" style="width:44px;height:44px;right:28%;top:6%;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.08"></div>
+    <div class="vay84 shape" style="width:96px;height:96px;left:18%;top:220px;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.05"></div>
+    <div class="vay85 shape" style="width:58px;height:58px;left:46%;bottom:28%;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.07"></div>
+    <div class="vay86 shape" style="width:88px;height:88px;right:12%;bottom:420px;background:radial-gradient(circle,#a9d8ff,#cfe9ff);opacity:0.04"></div>
+    <div class="vay87 shape" style="width:34px;height:34px;left:62%;top:36%;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.09"></div>
+    <div class="vay88 shape" style="width:72px;height:72px;left:8%;top:320px;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.06"></div>
+    <div class="vay89 shape" style="width:120px;height:120px;right:18%;top:320px;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.04"></div>
+    <div class="vay90 shape" style="width:52px;height:52px;left:34%;top:120px;background:radial-gradient(circle,#a9d8ff,#eaf6ff);opacity:0.08"></div>
+    <div class="vay91 shape" style="width:66px;height:66px;left:86%;bottom:120px;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.06"></div>
+    <div class="vay92 shape" style="width:98px;height:98px;left:12%;top:420px;background:radial-gradient(circle,#a9d8ff,#cfe9ff);opacity:0.05"></div>
+    <div class="vay93 shape" style="width:40px;height:40px;right:46%;top:120px;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.08"></div>
+    <div class="vay94 shape" style="width:84px;height:84px;left:52%;bottom:420px;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.06"></div>
+    <div class="vay95 shape" style="width:116px;height:116px;right:-80px;bottom:520px;background:radial-gradient(circle,#ffffff,#cfe9ff);opacity:0.03"></div>
+    <div class="vay96 shape" style="width:30px;height:30px;left:28%;top:8%;background:radial-gradient(circle,#a9d8ff,#eaf6ff);opacity:0.09"></div>
+    <div class="vay97 shape" style="width:70px;height:70px;left:68%;top:120px;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.06"></div>
+    <div class="vay98 shape" style="width:50px;height:50px;right:8%;top:220px;background:radial-gradient(circle,#a9d8ff,#cfe9ff);opacity:0.08"></div>
+    <div class="vay99 shape" style="width:140px;height:140px;left:-60px;bottom:620px;background:radial-gradient(circle,#ffffff,#d7efff);opacity:0.03"></div>
+    <div class="vay100 shape" style="width:88px;height:88px;left:42%;bottom:620px;background:radial-gradient(circle,#a9d8ff,#ffffff);opacity:0.05"></div>
+
+  </div>
+
+  <script>
+    // ===== Simple interactivity =====
+    (function(){
+      // Smooth scroll for nav links
+      document.querySelectorAll('a[href^="#"]').forEach(a=>{
+        a.addEventListener('click', e=>{
+          e.preventDefault();
+          const id = a.getAttribute('href').slice(1);
+          const el = document.getElementById(id);
+          if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+        });
+      });
+
+      // Project click -> modal-like quick preview
+      const projects = document.querySelectorAll('.project');
+      projects.forEach(p=>{
+        p.addEventListener('click', ()=>{
+          const title = p.dataset.title || p.querySelector('h3').innerText;
+          const desc = p.dataset.desc || p.querySelector('p').innerText;
+          const modal = document.createElement('div');
+          modal.style.position='fixed';
+          modal.style.inset='0';
+          modal.style.display='flex';
+          modal.style.alignItems='center';
+          modal.style.justifyContent='center';
+          modal.style.background='rgba(2,20,40,0.45)';
+          modal.style.zIndex=9999;
+          modal.innerHTML = '<div style="background:linear-gradient(180deg,rgba(255,255,255,0.95),#f0fbff);padding:22px;border-radius:12px;max-width:520px;color:var(--text)">'+
+                            '<h3 style="margin-bottom:8px;color:var(--text)">'+title+'</h3><p style="color:rgba(4,32,58,0.8)">'+desc+'</p>'+
+                            '<div style="margin-top:14px;display:flex;gap:10px;justify-content:flex-end">'+
+                            '<button id="closeModal" style="padding:10px 14px;border-radius:10px;border:none;background:rgba(2,20,40,0.06);color:var(--text)">Fermer</button>'+
+                            '<a href="#" style="padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--white),var(--accent));color:var(--text);text-decoration:none;font-weight:700">Voir le projet</a>'+
+                            '</div></div>';
+          document.body.appendChild(modal);
+          modal.querySelector('#closeModal').addEventListener('click', ()=>document.body.removeChild(modal));
+          modal.addEventListener('click', (ev)=>{ if(ev.target===modal) document.body.removeChild(modal) });
+        });
+      });
+
+      // Contact form (demo)
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', e=>{
+        e.preventDefault();
+        const name = form.name.value.trim() || '—';
+        const prev = document.createElement('div');
+        prev.style.position='fixed';
+        prev.style.right='20px';
+        prev.style.bottom='20px';
+        prev.style.background='linear-gradient(90deg,var(--white),var(--accent))';
+        prev.style.color='var(--text)';
+        prev.style.padding='12px 16px';
+        prev.style.borderRadius='12px';
+        prev.style.fontWeight='700';
+        prev.style.boxShadow='0 10px 30px rgba(14,40,80,0.12)';
+        prev.innerText = 'Message envoyé — merci ' + name + '!';
+        document.body.appendChild(prev);
+        setTimeout(()=>prev.style.opacity='0',2200);
+        setTimeout(()=>document.body.removeChild(prev),2600);
+        form.reset();
+      });
+
+      // Buttons
+      document.getElementById('contactBtn').addEventListener('click', ()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}));
+      document.getElementById('downloadBtn').addEventListener('click', ()=>alert('Téléchargement du CV simulé — ajoute ton fichier réel ici.'));
+      document.getElementById('resetBtn').addEventListener('click', ()=>document.getElementById('contactForm').reset());
+
+      // Subtle parallax for shapes on mouse move
+      const shapes = Array.from(document.querySelectorAll('.shape'));
+      window.addEventListener('mousemove', (e)=>{
+        const cx = window.innerWidth/2;
+        const cy = window.innerHeight/2;
+        const dx = (e.clientX - cx)/cx;
+        const dy = (e.clientY - cy)/cy;
+        shapes.forEach((s,i)=>{
+          const speed = (i % 7) * 0.6 + 0.6;
+          s.style.transform = `translate3d(${dx*speed*6}px, ${dy*speed*6}px, 0) scale(${1 + Math.sin(Date.now()/2000 + i)/200})`;
+        });
+      });
+
+      // Video autoplay on scroll
+      const video = document.getElementById('autoplay-video');
+      if (video) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              video.play();
+            } else {
+              video.pause();
+            }
+          });
+        }, { threshold: 0.5 });
+        observer.observe(video);
+      }
+    })();
+  </script>
+</body>
+</html>
